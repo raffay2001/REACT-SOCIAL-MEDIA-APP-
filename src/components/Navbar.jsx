@@ -7,10 +7,12 @@ import {
   InputBase,
   Badge,
   Avatar,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import CodeOutlinedIcon from "@mui/icons-material/CodeOutlined";
 import { Mail, Notifications } from "@mui/icons-material";
-import React from "react";
+import React, { useState } from "react";
 
 // making our own custom component with custom styling.
 const StyledToolBar = styled(Toolbar)({
@@ -26,28 +28,28 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const Icons = styled(Box)(({ theme }) => ({
-  display: "none",      // for screen < 600px.
+  display: "none", // for screen < 600px.
   gap: "20px",
   alignItems: "center",
   [theme.breakpoints.up("sm")]: {
-    display: "flex"      // for screen >= 600px
-  }
+    display: "flex", // for screen >= 600px
+  },
 }));
 
 const UserBox = styled(Box)(({ theme }) => ({
-  display: "flex",      // for screen < 600px
+  display: "flex", // for screen < 600px
   gap: "20px",
   alignItems: "center",
   [theme.breakpoints.up("sm")]: {
-    display: "none"     // for screen >= 600px 
-  }
+    display: "none", // for screen >= 600px
+  },
 }));
 
 const Navbar = () => {
+  const [isMenuOpen, SetIsMenuOpen] = useState(false);
   return (
     <AppBar position="sticky">
       <StyledToolBar>
-
         {/* For Screens >= 600px  */}
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           RAFFAY DEV
@@ -70,6 +72,7 @@ const Navbar = () => {
           <Avatar
             sx={{ width: 30, height: 30 }}
             src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=30&q=80"
+            onClick={() => SetIsMenuOpen((prevState) => true)}
           />
         </Icons>
         {/* For Screens < 600px  */}
@@ -77,11 +80,31 @@ const Navbar = () => {
           <Avatar
             sx={{ width: 30, height: 30 }}
             src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=30&q=80"
+            onClick={() => SetIsMenuOpen((prevState) => true)}
           />
           <Typography variant="span">John Doe</Typography>
         </UserBox>
-
       </StyledToolBar>
+
+      {/* Menu Component For Other Navigational Links  */}
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        open={isMenuOpen}
+        onClose={() => SetIsMenuOpen(false)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 };
