@@ -19,8 +19,8 @@ import {
 } from "@mui/icons-material";
 import React from "react";
 
-const SideBar = () => {
-  return (
+const SideBar = ({ mode, setMode }) => {
+  return (  
     // for screens < 600px this box will be invisible and for the screens >= 600px this Box will be visible
     <Box sx={{ display: { xs: "none", sm: "block" } }} flex={1} p={2}>
       <Box position="fixed">
@@ -94,7 +94,7 @@ const SideBar = () => {
               <ListItemIcon>
                 <ModeNight />
               </ListItemIcon>
-              <Switch></Switch>
+              <Switch onChange={(e) => setMode(mode === "light" ? "dark" : "light")} />
             </ListItemButton>
           </ListItem>
         </List>
